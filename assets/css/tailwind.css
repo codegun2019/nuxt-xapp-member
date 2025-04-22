@@ -1,44 +1,18 @@
 /* assets/css/tailwind.css */
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
-@layer base {
-  html {
-    font-family: 'Prompt', sans-serif;
-  }
-  
-  body {
-    @apply bg-gray-50;
-  }
-}
-
-/* Custom components */
 @layer components {
-  .btn {
-    @apply px-4 py-2 font-semibold transition-colors;
-  }
-  
   .btn-primary {
-    @apply bg-brand-500 hover:bg-brand-600 text-white rounded-full;
+    @apply bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded-full transition-colors;
   }
   
-  .btn-deposit {
-    @apply bg-gradient-to-r from-deposit-500 to-deposit-600 text-white rounded-full;
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500;
   }
   
   .card {
     @apply bg-white rounded-2xl shadow-sm p-6 border border-gray-100;
-  }
-  
-  .form-input {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500;
-  }
-  
-  .balance-badge {
-    @apply flex items-center bg-balance-bg rounded-full p-1 pr-3 text-balance-text font-semibold;
   }
 }

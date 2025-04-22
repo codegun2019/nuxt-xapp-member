@@ -10,7 +10,12 @@
 </template>
 
 <script setup>
-import { useTheme } from '~/composables/useTheme'
+import { ref } from 'vue'
 
-const { isDark, toggleTheme } = useTheme()
+const isDark = ref(false)
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  // ในสถานการณ์จริง คุณจะเพิ่มโค้ดสำหรับการเปลี่ยน theme
+}
 </script>

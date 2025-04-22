@@ -1,4 +1,5 @@
 // tailwind.config.js
+import { themeConfig } from "./config/theme"
 const colors = require('./tailwind/colors')
 const typography = require('./tailwind/typography')
 const plugins = require('./tailwind/plugins')
@@ -16,17 +17,63 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      // ... other theme extensions
-      backgroundColor: ({ theme }) => ({
-        ...theme('colors'),
-        'dark-card': '#1e293b', // slate-800
-        'dark-input': '#334155', // slate-700
-      }),
-      textColor: ({ theme }) => ({
-        ...theme('colors'),
-        'dark-primary': '#f9fafb', // gray-50
-        'dark-secondary': '#cbd5e1', // slate-300
-      }),
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        success: themeConfig.colors.success,
+        warning: themeConfig.colors.warning,
+        error: themeConfig.colors.error,
+      },
+      borderRadius: {
+        // lg: "var(--radius)",
+        // md: "calc(var(--radius) - 2px)",
+        // sm: "calc(var(--radius) - 4px)",
+      },
+      animation: {
+        "bounce-in": "bounce-in 0.5s",
+        "bounce-out": "bounce-out 0.5s",
+        "fade-in": "fade-in 0.5s",
+        "fade-out": "fade-out 0.5s",
+        "fade-in-up": "fade-in-up 0.5s",
+        "fade-out-up": "fade-out-up 0.5s",
+        "fade-in-down": "fade-in-down 0.5s",
+        // สีอื่นๆ ที่ต้องการกำหนดเพิ่มเติม
+      }
     },
   },
   plugins: [],
