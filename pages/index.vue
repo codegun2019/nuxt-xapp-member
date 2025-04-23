@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gray-50">
+  <div class="min-h-screen flex flex-col bg-primary-50">
   <AppHeader/>
-  <div class="max-w-md w-full mx-auto mt-10 bg-white-50 rounded-2xl shadow-sm p-2 border border-gray-100">
+  <div class="max-w-md w-full mx-auto mt-10 bg-white-50 rounded-2xl shadow-sm p-2 border border-primary-100">
     <Balance/>
     <BalanceMore/>
     <CardRanking/>
