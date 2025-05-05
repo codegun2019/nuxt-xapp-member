@@ -23,6 +23,5 @@ import BalanceMore from '~/components/xbet/BalanceCardSecondary.vue'
 import CardRanking from '~/components/xbet/CardLevelRanking.vue'
 import GridMenu from '~/components/xbet/GridMenu.vue'
 import HeroCarousel from '~/components/xbet/HeroCarousel.vue'
-
 import AppFooter from '~/components/layout/AppFooter.vue'
 </script>

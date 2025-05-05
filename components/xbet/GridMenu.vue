@@ -1,17 +1,17 @@
 <template>
   <TransitionGroup name="fade-scale" tag="div" class="feature-buttons-grid">
-    <button
+    <router-link
       v-for="(button, index) in buttons"
       :key="button.id"
+      :to="button.link"
       class="feature-button border border-white/20 rounded-lg shadow-sm"
       :class="button.colorClass"
-      @click="$emit('button-click', button.id)"
     >
       <div class="button-icon">
         <component :is="button.icon" class="w-6 h-6" />
       </div>
       <span class="button-label">{{ button.label }}</span>
-    </button>
+    </router-link>
   </TransitionGroup>
 </template>
 
@@ -29,23 +29,25 @@ import {
   TrophyIcon
 } from '@heroicons/vue/24/outline'
 
-defineEmits(['button-click'])
+// ถ้าไม่ได้ใช้ emit แล้ว ลบได้
+// defineEmits(['button-click'])
 
 const buttons = [
-  { id: 'promotion', label: 'โปรโมชั่น', icon: GiftIcon, colorClass: 'bg-pink' },
-  { id: 'deposit', label: 'ฝาก', icon: WalletIcon, colorClass: 'bg-green' },
-  { id: 'withdraw', label: 'ถอน', icon: WalletIcon, colorClass: 'bg-blue' },
-  { id: 'share', label: 'แชร์รายได้', icon: ShareIcon, colorClass: 'bg-pink-light' },
-  { id: 'checkin', label: 'เช็คอิน', icon: CalendarDaysIcon, colorClass: 'bg-pink' },
-  { id: 'wheel', label: 'กงล้อโชค', icon: Cog6ToothIcon, colorClass: 'bg-pink-light' },
-  { id: 'quest', label: 'เควส', icon: SparklesIcon, colorClass: 'bg-purple' },
-  { id: 'contact', label: 'ติดต่อเรา', icon: ChatBubbleBottomCenterTextIcon, colorClass: 'bg-orange' },
-  { id: 'cashback', label: 'คืนยอดเสีย', icon: ArrowPathIcon, colorClass: 'bg-pink-light' },
-  { id: 'redenvelope', label: 'เปิดอั่งเปา', icon: CubeIcon, colorClass: 'bg-pink' },
-  { id: 'freecredit', label: 'เครดิตฟรี', icon: GiftIcon, colorClass: 'bg-pink' },
-  { id: 'ranking', label: 'อันดับนักเล่น', icon: TrophyIcon, colorClass: 'bg-pink-light' }
+  { id: 'promotion', label: 'โปรโมชั่น', icon: GiftIcon, colorClass: 'bg-pink', link: '/promotions' },
+  { id: 'deposit', label: 'ฝาก', icon: WalletIcon, colorClass: 'bg-green', link: '/deposit' },
+  { id: 'withdraw', label: 'ถอน', icon: WalletIcon, colorClass: 'bg-blue', link: '/withdraw' },
+  { id: 'share', label: 'แชร์รายได้', icon: ShareIcon, colorClass: 'bg-pink-light', link: '/referral' },
+  { id: 'checkin', label: 'เช็คอิน', icon: CalendarDaysIcon, colorClass: 'bg-pink', link: '/checkin' },
+  { id: 'wheel', label: 'กงล้อโชค', icon: Cog6ToothIcon, colorClass: 'bg-pink-light', link: '/wheel' },
+  { id: 'quest', label: 'เควส', icon: SparklesIcon, colorClass: 'bg-purple', link: '/quest' },
+  { id: 'contact', label: 'ติดต่อเรา', icon: ChatBubbleBottomCenterTextIcon, colorClass: 'bg-orange', link: '/contact' },
+  { id: 'cashback', label: 'คืนยอดเสีย', icon: ArrowPathIcon, colorClass: 'bg-pink-light', link: '/cashback' },
+  { id: 'redenvelope', label: 'เปิดอั่งเปา', icon: CubeIcon, colorClass: 'bg-pink', link: '/gacgagame' },
+  { id: 'freecredit', label: 'เครดิตฟรี', icon: GiftIcon, colorClass: 'bg-pink', link: '/freecredit' },
+  { id: 'ranking', label: 'อันดับนักเล่น', icon: TrophyIcon, colorClass: 'bg-pink-light', link: '/ranking' }
 ]
 </script>
+
 
 <style scoped>
 .feature-buttons-grid {

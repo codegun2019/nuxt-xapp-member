@@ -1,33 +1,13 @@
 <template>
-  <div class="hero-carousel-container">
+  <div class="hero-carousel-container relative">
     <client-only>
       <swiper
         :modules="[SwiperAutoplay, SwiperPagination, SwiperNavigation]"
         :slides-per-view="1"
         :space-between="20"
-        :autoplay="{
-          delay: 5000,
-          disableOnInteraction: false,
-        }"
-        :pagination="{
-          clickable: true,
-          dynamicBullets: true,
-        }"
-        :navigation="true"
-        :breakpoints="{
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10
-          },
-          768: {
-            slidesPerView: 1,
-            spaceBetween: 10
-          },
-          1024: {
-            slidesPerView: 1,
-            spaceBetween: 10
-          }
-        }"
+        :autoplay="{ delay: 5000, disableOnInteraction: false }"
+        :pagination="{ clickable: true, dynamicBullets: true }"
+        navigation
         class="mySwiper"
       >
         <swiper-slide v-for="(slide, index) in slides" :key="index">
@@ -41,21 +21,35 @@
           </div>
         </swiper-slide>
       </swiper>
+
+      <!-- Custom Arrows -->
+      <div class="swiper-custom-arrows">
+        <div class="swiper-button-prev-custom" @click="goPrev">
+          <ChevronLeftIcon class="w-5 h-5 text-pink-500" />
+        </div>
+        <div class="swiper-button-next-custom" @click="goNext">
+          <ChevronRightIcon class="w-5 h-5 text-pink-500" />
+        </div>
+      </div>
     </client-only>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/solid'
+
 const SwiperAutoplay = Autoplay
 const SwiperPagination = Pagination
 const SwiperNavigation = Navigation
+
+let swiperInstance = null
 
 const slides = ref([
   {
@@ -72,96 +66,59 @@ const slides = ref([
     title: 'โบนัสวันเกิด 500 บาท',
     description: 'รับโบนัสพิเศษในวันเกิดของคุณ ไม่ต้องทำเทิร์น',
     image: 'https://placehold.co/600x300'
-  },
-  {
-    title: 'แนะนำเพื่อน รับ 200 บาท',
-    description: 'แนะนำเพื่อนมาสมัคร รับโบนัสทันที 200 บาทต่อคน',
-    image: 'https://placehold.co/600x300'
-  },
-  {
-    title: 'โบนัสเติมเงินประจำวัน',
-    description: 'รับโบนัส 5% ทุกครั้งที่เติมเงิน สูงสุด 500 บาทต่อวัน',
-    image: 'https://placehold.co/600x300'
   }
 ])
+
+const goPrev = () => swiperInstance?.slidePrev()
+const goNext = () => swiperInstance?.slideNext()
+
+onMounted(() => {
+  const instance = document.querySelector('.swiper')?.swiper
+  if (instance) {
+    swiperInstance = instance
+  }
+})
 </script>
 
 <style scoped>
 .hero-carousel-container {
   width: 100%;
-  margin: 0 auto;
   padding: 1.5rem 0;
   overflow: hidden;
 }
 
 .promotion-slide {
-  position: relative;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 220px;
-  background: #fff;
-  transition: transform 0.3s ease;
+  @apply relative rounded-xl overflow-hidden shadow-md bg-white transition-transform duration-300 ease-in-out h-[220px];
 }
 
 .promotion-slide:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .slide-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  @apply absolute top-0 left-0 w-full h-full object-cover z-10;
 }
 
 .slide-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
+  @apply absolute bottom-0 left-0 right-0 p-4 z-20 text-white;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  color: white;
-  z-index: 2;
 }
 
 .slide-title {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  @apply text-lg font-bold mb-2;
 }
 
 .slide-description {
-  font-size: 0.875rem;
-  margin-bottom: 0.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  @apply text-sm mb-3 line-clamp-2;
 }
 
 .slide-button {
-  background: #ec4899;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  @apply bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium transition;
 }
 
-.slide-button:hover {
-  background: #db2777;
-}
-
+/* Swiper pagination */
 :deep(.swiper-pagination-bullet) {
-  background: #ec4899;
+  background-color: #ec4899;
   opacity: 0.5;
 }
 
@@ -169,34 +126,36 @@ const slides = ref([
   opacity: 1;
 }
 
+/* Hide native arrows */
 :deep(.swiper-button-next),
 :deep(.swiper-button-prev) {
-  color: #ec4899;
-  background: rgba(255, 255, 255, 0.8);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none !important;
+}
+
+/* Custom Arrows */
+.swiper-custom-arrows {
+  @apply absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 pointer-events-none;
+}
+
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+  @apply bg-white/80 w-8 h-8 rounded-full flex items-center justify-center shadow pointer-events-auto transition hover:scale-110;
 }
 
 @media (max-width: 767px) {
   .promotion-slide {
-    height: 180px;
+    @apply h-[180px];
   }
 
   .slide-title {
-    font-size: 1rem;
+    @apply text-base;
   }
 
   .slide-description {
-    font-size: 0.75rem;
-    -webkit-line-clamp: 1;
+    @apply text-xs line-clamp-1;
   }
 
-  :deep(.swiper-button-next),
-  :deep(.swiper-button-prev) {
+  .swiper-custom-arrows {
     display: none;
   }
 }
